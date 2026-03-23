@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jump in the World</title>
+  <!-- Styles du jeu dans un fichier séparé -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Bouton retour au menu -->
+  <button id="btn-back" onclick="window.location.href='menu.html'">← MENU</button>
+
+  <!-- Nom du monde actif -->
+  <p id="world-label">Loading…</p>
+
+  <!-- HUD : score, meilleur score, vitesse -->
+  <div class="hud">
+    <div class="hud-item">SCORE   <span id="score">0</span></div>
+    <div class="hud-item">BEST    <span id="best">0</span></div>
+    <div class="hud-item">VITESSE <span id="speed">4.0x</span></div>
+  </div>
+
+  <!-- Canvas du jeu -->
+  <div class="canvas-wrapper">
+    <canvas id="game" width="700" height="250"></canvas>
+  </div>
+
+  <!-- Indications clavier (desktop) -->
+  <div class="controls">
+    <div class="key-hint"><div class="key">↑</div>Sauter / Double saut</div>
+    <div class="key-hint"><div class="key">↓</div>S'accroupir</div>
+    <div class="key-hint"><div class="key">ESPACE</div>Démarrer</div>
+  </div>
+
+  <!-- Boutons tactiles (mobile) -->
+  <div class="mobile-btns">
+    <button class="btn-mobile" id="btn-jump">↑ SAUTER</button>
+    <button class="btn-mobile" id="btn-duck">↓ RAMPER</button>
+  </div>
+
+  <!-- Logique du jeu -->
+  <script src="game.js"></script>
+
+</body>
+</html>

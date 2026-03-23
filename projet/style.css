@@ -1,0 +1,414 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+
+/* ─── RESET ─── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ─── BODY ─── */
+body {
+  min-height: 100vh;
+  background: #07090f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 40px 20px;
+  font-family: 'Rajdhani', sans-serif;
+  overflow: hidden;
+}
+
+/* ─── TITLE ZONE ─── */
+.title-zone {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.game-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  letter-spacing: 8px;
+  color: #fff;
+  text-shadow:
+    0 0 30px rgba(150, 100, 255, 0.8),
+    0 0 60px rgba(150, 100, 255, 0.4);
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  from { text-shadow: 0 0 30px rgba(150, 100, 255, 0.8), 0 0 60px rgba(150, 100, 255, 0.4); }
+  to   { text-shadow: 0 0 50px rgba(180, 130, 255, 1),   0 0 90px rgba(180, 130, 255, 0.6); }
+}
+
+/* ─── TITLE DECORATION ─── */
+.title-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.title-decoration .line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(150, 120, 255, 0.8), transparent);
+}
+
+.title-decoration .diamond {
+  width: 8px;
+  height: 8px;
+  background: #c77dff;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px #c77dff;
+}
+
+/* ─── WORLDS CONTAINER ─── */
+.worlds-container {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* ─── WORLD CARD ─── */
+.world-card {
+  position: relative;
+  width: 220px;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.world-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    0 0 40px var(--glow);
+  border-color: var(--accent);
+}
+
+/* ─── WORLD COLOR THEMES ─── */
+.world-card:nth-child(1) { --accent: rgb(255, 174, 0);         --glow: rgba(100, 200, 255, 0.2); }
+.world-card:nth-child(2) { --accent: rgba(177, 62, 0, 0.6);    --glow: rgba(255, 140, 80,  0.2); }
+.world-card:nth-child(3) { --accent: rgb(255, 255, 255);        --glow: rgba(80,  220, 140, 0.2); }
+.world-card:nth-child(4) { --accent: rgba(27, 158, 194, 0.986); --glow: rgba(200, 100, 255, 0.2); }
+
+/* ─── WORLD IMAGE ─── */
+.world-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.world-card:nth-child(1) .world-image {
+  background: linear-gradient(160deg, #0a2a4a 0%, #1a6a9a 50%, #0a3a5a 100%);
+  background-image: url(images/egypt/background_egypt.png);
+}
+.world-card:nth-child(2) .world-image {
+  background: linear-gradient(160deg, #4a1a0a 0%, #9a4a1a 50%, #5a2a0a 100%);
+  background-image: url(images/farwest/background_farwest.png);
+}
+.world-card:nth-child(3) .world-image {
+  background: linear-gradient(160deg, #0a3a1a 0%, #1a7a4a 50%, #0a4a2a 100%);
+  background-image: url(images/space/background_space.png);
+}
+.world-card:nth-child(4) .world-image {
+  background: linear-gradient(160deg, #2a0a4a 0%, #6a1a9a 50%, #3a0a5a 100%);
+  background-image: url(images/sea/background_sea.jpg);
+}
+
+.world-card:hover .world-image {
+  filter: blur(4px) brightness(0.5);
+  transform: scale(1.05);
+}
+
+/* ─── WORLD OVERLAY ─── */
+.world-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.world-card:hover .world-overlay {
+  opacity: 1;
+}
+
+/* ─── PLAY BUTTON ─── */
+.btn-play {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid var(--accent);
+  border-radius: 50px;
+  color: #fff;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  text-transform: uppercase;
+}
+
+.btn-play:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.08);
+  box-shadow: 0 0 20px var(--glow);
+}
+
+.btn-play .play-icon {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid #fff;
+}
+
+/* ─── WORLD INFO ─── */
+.world-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 16px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.world-card:hover .world-info {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.world-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.world-desc {
+  font-size: 0.78rem;
+  color: rgba(200, 210, 230, 0.8);
+  line-height: 1.4;
+  font-weight: 300;
+}
+
+/* ─── NUMBER BADGE ─── */
+.world-number {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 1px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 4px 8px;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+  transition: opacity 0.35s;
+}
+
+.world-card:hover .world-number {
+  opacity: 0;
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  z-index: 1;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   game.css — styles de la page de jeu (game.html)
+   À garder séparé de style.css qui gère le menu
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* ─── RESET ─── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ─── BODY ─── */
+body {
+  background: #0a0a0f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 14px;
+  padding: 20px;
+  font-family: 'Press Start 2P', monospace;
+  color: #e0e0e0;
+  overflow: hidden;
+}
+
+/* ─── BOUTON RETOUR MENU ─── */
+#btn-back {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+  z-index: 10;
+}
+
+#btn-back:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── LABEL DU MONDE ─── */
+#world-label {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* ─── HUD ─── */
+.hud {
+  display: flex;
+  gap: 50px;
+}
+
+.hud-item {
+  text-align: center;
+  font-size: 8px;
+  color: #aaa;
+  letter-spacing: 1px;
+}
+
+/* Valeur numérique dans le HUD */
+.hud-item span {
+  display: block;
+  font-size: 16px;
+  color: #fff;
+  margin-top: 4px;
+}
+
+/* ─── CANVAS ─── */
+.canvas-wrapper {
+  border: 2px solid #222;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+canvas {
+  display: block;
+}
+
+/* ─── INDICATIONS CLAVIER (desktop) ─── */
+.controls {
+  display: flex;
+  gap: 30px;
+  margin-top: 4px;
+}
+
+.key-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 7px;
+  color: #555;
+  letter-spacing: 0.5px;
+}
+
+.key {
+  background: #1a1a2e;
+  border: 1px solid #333;
+  border-bottom: 3px solid #111;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: #999;
+  min-width: 36px;
+  text-align: center;
+}
+
+/* ─── BOUTONS MOBILES ─── */
+.mobile-btns {
+  display: none;           /* caché sur desktop, affiché via media query */
+  gap: 20px;
+}
+
+.btn-mobile {
+  background: #1a1a2e;
+  border: 2px solid #444;
+  border-radius: 8px;
+  color: #ccc;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  padding: 14px 22px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-mobile:active {
+  background: #2a2a4e;
+}
+
+/* ─── RESPONSIVE ─── */
+
+/* Mobile : cache les hints clavier, affiche les boutons tactiles */
+@media (max-width: 700px) {
+  .controls    { display: none; }
+  .mobile-btns { display: flex; }
+}
+
+/* Très petit écran : réduit le canvas */
+@media (max-width: 480px) {
+  canvas {
+    width: 360px !important;
+    height: 180px !important;
+  }
+}
